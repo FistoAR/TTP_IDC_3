@@ -1348,8 +1348,8 @@ document.querySelectorAll('.fab-menu-item').forEach(item => {
 function handleShare() {
   if (navigator.share) {
     navigator.share({
-      title: document.title,
-      url: window.location.href
+      // title: document.title,
+      // url: window.location.href
     }).catch(console.error);
   } else {
     // Fallback: Copy to clipboard
@@ -1381,9 +1381,212 @@ function handleDownload() {
 // **************************************************Template code End ****************************************** 
 
 
+// ************************bottom thumnail code start ------------------------------------- -->
+const navToggle1 = document.getElementById('navToggle1');
+const tocNav1 = document.getElementById('tocNav1');
+const navOverlay1 = document.getElementById('navOverlay1');
+function openMenu1() {
+    navToggle1.classList.add('open');
+    tocNav1.classList.add('show');
+    navOverlay1.classList.add('show');
+    navToggle1.setAttribute('aria-expanded', 'true');
+}1
+function closeMenu1() {
+    navToggle1.classList.remove('open');
+    tocNav1.classList.remove('show');
+    navOverlay1.classList.remove('show');
+    navToggle1.setAttribute('aria-expanded', 'false');
+}
+navToggle1.addEventListener('click', function () {
+    if (tocNav1.classList.contains('show')) closeMenu1();
+    else openMenu1();
+});
+navOverlay1.addEventListener('click', closeMenu1);
+document.querySelectorAll('.toc-list1 a').forEach(link => {
+    link.addEventListener('click', closeMenu1);
+});
+// Keyboard: ESC to close
+document.addEventListener('keydown', function (e) {
+    if (e.key === "Escape") closeMenu1();
+});
+
+
+// ************************bottom thumnail code end ------------------------------------- -->
 
 
 
+// music and share button 
 
 
+// ========== MUSIC TOGGLE FUNCTIONALITY (Top Right Button) ==========
+document.addEventListener("DOMContentLoaded", function() {
+    const musicToggle = document.getElementById('musicToggle');
+    const bgmAudio = document.getElementById('bgmAudio');
+    const musicIcon = document.getElementById('musicIcon');
+    const mutedIcon = document.getElementById('mutedIcon');
+    const mutedLine = document.getElementById('mutedLine');
+    
+    let isMusicPlaying = false;
+    
+    if (musicToggle && bgmAudio) {
+        musicToggle.addEventListener('click', function() {
+            if (isMusicPlaying) {
+                bgmAudio.pause();
+                isMusicPlaying = false;
+                if (musicIcon) musicIcon.style.display = 'none';
+                if (mutedIcon) mutedIcon.style.display = 'block';
+                if (mutedLine) mutedLine.style.display = 'block';
+            } else {
+                bgmAudio.play();
+                isMusicPlaying = true;
+                if (musicIcon) musicIcon.style.display = 'block';
+                if (mutedIcon) mutedIcon.style.display = 'none';
+                if (mutedLine) mutedLine.style.display = 'none';
+            }
+        });
+    }
+    
+    // ========== BOTTOM MUSIC ICON FUNCTIONALITY (FAB Menu) ==========
+ document.addEventListener("DOMContentLoaded", function () {
+  const bgmAudio = document.getElementById("bgmAudio");
+
+  const musicIcon = document.getElementById("musicIcon");
+  const mutedIcon = document.getElementById("mutedIcon");
+  const mutedLine = document.getElementById("mutedLine");
+
+  let isMusicPlaying = false;
+
+  if (!bgmAudio) return;
+
+  // 🔁 SINGLE TOGGLE FUNCTION
+  function toggleMusic() {
+    if (isMusicPlaying) {
+      bgmAudio.pause();
+      isMusicPlaying = false;
+
+      if (musicIcon) musicIcon.style.display = "none";
+      if (mutedIcon) mutedIcon.style.display = "block";
+      if (mutedLine) mutedLine.style.display = "block";
+    } else {
+      bgmAudio.play().catch(() => {});
+      isMusicPlaying = true;
+
+      if (musicIcon) musicIcon.style.display = "block";
+      if (mutedIcon) mutedIcon.style.display = "none";
+      if (mutedLine) mutedLine.style.display = "none";
+    }
+  }
+
+  // 🎵 TOP / SINGLE MUSIC BUTTON
+  const musicToggle = document.getElementById("musicToggle");
+  if (musicToggle) {
+    musicToggle.addEventListener("click", toggleMusic);
+  }
+
+  // 🎵 OLD FAB MENU MUSIC BUTTON
+  const fabMusicBtn = document.querySelector(".music-menu-icon");
+  if (fabMusicBtn) {
+    fabMusicBtn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      toggleMusic();
+
+      // Close FAB menu
+      document.querySelector(".fab-menu")?.classList.remove("show");
+      document.querySelector(".fab-overlay")?.classList.remove("show");
+    });
+  }
+});
+
+    
+    // ========== DOWNLOAD PDF FUNCTIONALITY ==========
+    const downloadBtn = document.querySelector('.download-menu-icon');
+    
+    if (downloadBtn) {
+        downloadBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            
+            const link = document.createElement('a');
+            link.href = '../dummy-pdf.pdf'; // Update path if needed
+            link.download = 'Terra tech idc.pdf';
+            link.style.display = 'none';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            const fabMenu = document.querySelector('.fab-menu');
+            const fabOverlay = document.querySelector('.fab-overlay');
+            if (fabMenu) fabMenu.classList.remove('show');
+            if (fabOverlay) fabOverlay.classList.remove('show');
+        });
+    }
+    
+    // ========== SHARE FUNCTIONALITY WITH OVERLAY FIX ==========
+    const fabShareBtn = document.querySelector('.share-menu-icon');
+    const shareMenu = document.getElementById('shareMenu');
+    const fabOverlay = document.querySelector('.fab-overlay');
+    const fabMenu = document.querySelector('.fab-menu');
+    
+    if (fabShareBtn && shareMenu) {
+        fabShareBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            
+            if (fabMenu) fabMenu.classList.remove('show');
+            
+            shareMenu.classList.add('show');
+            shareMenu.setAttribute('aria-hidden', 'false');
+            
+            // IMPORTANT: Keep the overlay visible
+            if (fabOverlay) {
+                fabOverlay.classList.add('show');
+            }
+            
+            const shareInput = document.getElementById('shareInput');
+            if (shareInput) {
+                try {
+                    shareInput.value = window.top.location.href;
+                } catch (e) {
+                    shareInput.value = window.location.href;
+                }
+                setTimeout(() => shareInput.select(), 90);
+            }
+        });
+    }
+    
+    // Close share menu when clicking overlay
+    if (fabOverlay) {
+        fabOverlay.addEventListener('click', function() {
+            if (shareMenu && shareMenu.classList.contains('show')) {
+                shareMenu.classList.remove('show');
+                fabOverlay.classList.remove('show');
+            } else {
+                const fabMenu = document.querySelector('.fab-menu');
+                if (fabMenu) fabMenu.classList.remove('show');
+                fabOverlay.classList.remove('show');
+            }
+        });
+    }
+    
+    const copyLinkBtn = document.getElementById('copyLinkBtn');
+    const copiedMsg = document.getElementById('copiedMsg');
+    const shareInput = document.getElementById('shareInput');
+    
+    if (copyLinkBtn && shareInput) {
+        copyLinkBtn.addEventListener('click', function() {
+            navigator.clipboard.writeText(shareInput.value).then(function() {
+                if (copiedMsg) {
+                    copiedMsg.classList.add('show');
+                    setTimeout(() => copiedMsg.classList.remove('show'), 1200);
+                }
+            });
+            shareInput.select();
+        });
+    }
+    
+    document.addEventListener('keydown', function(e) {
+        if (e.key === "Escape" && shareMenu && shareMenu.classList.contains('show')) {
+            shareMenu.classList.remove('show');
+            if (fabOverlay) fabOverlay.classList.remove('show');
+        }
+    });
+});
 

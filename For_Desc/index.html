@@ -147,22 +147,171 @@
           <!-- <li class="tb-link" data-page="1"><a> HOME</a></li>
           <li class="tb-link" data-page="2"><a> LIST OF SERVICES</a></li> -->
           <li class="tb-link cursor-pointer" data-page="1" data-audio-path="../audios/home.mp3"><a> Home </a></li>
-          <li class="tb-link cursor-pointer" data-page="2" data-audio-path="../audios/products.mp3"><a> Products  </a></li>
-          <li class="tb-link cursor-pointer" data-page="2" data-audio-path="../audios/about us.mp3"><a>About us</a></li>
+          <li class="tb-link cursor-pointer" data-page="2" data-audio-path="../audios/products.mp3"><a> Product List</a></li>
+          <li class="tb-link cursor-pointer" data-page="2" data-audio-path="../audios/about us.mp3"><a>About Us</a></li>
           
-          <li class="tb-link cursor-pointer" data-page="14" data-audio-path="../audios/contact_us.mp3"><a> Contact Us  </a></li>
+          <li class="tb-link cursor-pointer" data-page="14" data-audio-path="../audios/contact_us.mp3"><a> Contact Us</a></li>
           <!-- <li class="tb-link" data-page="28" data-audio-path="../audios/products.mp3"><a> PRODUCTS</a></li>
           <li class="tb-link" data-page="40" data-audio-path="../audios/contact_us.mp3"><a> CONTACT US</a></li> -->
         </ul>
       </nav>
+
+
+
+<!-- --------------------------------------------------Nav dot code start------------------------- -->
+
+
+
+<!-- Floating Action Menu -->
+<div class="fab-container">
+  <!-- Three Dot Trigger Button -->
+  <button class="fab-trigger" id="fabTrigger" aria-label="Open menu">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="5" r="2" fill="currentColor"/>
+      <circle cx="12" cy="12" r="2" fill="currentColor"/>
+      <circle cx="12" cy="19" r="2" fill="currentColor"/>
+    </svg>
+  </button>
+
+  <!-- Backdrop Blur Overlay -->
+  <div class="fab-overlay" id="fabOverlay"></div>
+
+  <!-- Circular Expanded Menu -->
+  <div class="fab-menu" id="fabMenu">
+    <!-- Close Button (X) -->
+    <button class="fab-close" id="fabClose" aria-label="Close menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+
+    <!-- Menu Items -->
+    <div class="fab-menu-items">
+      <!-- Share Icon -->
+      <button class="fab-menu-item share-menu-icon" id="shareBtn" data-action="share" aria-label="Share">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="18" cy="5" r="3"/>
+          <circle cx="6" cy="12" r="3"/>
+          <circle cx="18" cy="19" r="3"/>
+          <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+          <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+        </svg>
+        <span>Share</span>
+      </button>
+
+      <!-- Music Icon -->
+      <!-- <button class="fab-menu-item music-menu-icon" data-action="music" aria-label="Music">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 18V5l12-2v13"/>
+          <circle cx="6" cy="18" r="3"/>
+          <circle cx="18" cy="16" r="3"/>
+        </svg>
+        <span>Music</span>
+      </button> -->
+<button
+  id="musicToggle"
+  class="fab-menu-item music-menu-icon"
+  aria-label="Toggle Music"
+>
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+    <!-- MUSIC ICON -->
+    <path
+      id="musicIcon"
+      d="M9 18V8l8-2v10M9 14l8-2"
+      stroke="#059669"
+      stroke-width="2.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+
+    <!-- MUTED CIRCLE -->
+    <circle
+      id="mutedIcon"
+      cx="12"
+      cy="12"
+      r="8"
+      stroke="#dc2626"
+      stroke-width="2.5"
+      fill="none"
+      style="display:none;"
+    />
+
+    <!-- MUTED SLASH -->
+    <line
+      id="mutedLine"
+      x1="7"
+      y1="7"
+      x2="17"
+      y2="17"
+      stroke="#dc2626"
+      stroke-width="2.5"
+      stroke-linecap="round"
+      style="display:none;"
+    />
+  </svg>
+
+  <span>Music</span>
+</button>
+
+
+
+      <!-- Download Icon -->
+      <button class="fab-menu-item download-menu-icon" data-action="download" aria-label="Download">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        <span>Download</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<!-- --------------------------------------------------Nav dot code end------------------------- -->
+
+
+
+<img src="../images/thumbnail-icon.svg" alt="foundation_thumbnails" id="navToggle1" class="absolute top-[7vw] left-[2.5vw] w-[3vw] bg-white p-[.5vw] rounded-[.5vw] cursor-pointer z-[910] hover:opacity-90 hover:bg-[#fcb33e] transition-opacity" />
+
+
+
+<!-- --------------thumbanil code start--------------------- -->
+
+<div id="navOverlay1" class="nav-overlay1"></div>
+      
+      <nav id="tocNav1" class="toc-floating1 " aria-label="Table of Contents">
+       
+        <ul class="toc-list1 flex gap-[1vw] ">
+          <li class="tb-link cursor-pointer pb-[.5vw]" data-page="1" ><a class="w-[5.2vw] h-[7vw]"><img src="../images/Thumnail-images/page-1.webp" class="mb-[.5vw]" /><p class="text-[.7vw] text-center mt-[.2vw] text-white">page 1</p></a></li>
+          <li class="tb-link cursor-pointer pb-[.5vw]" data-page="2" ><a class="w-[10vw] h-[7vw]"><img src="../images/Thumnail-images/page-2-3.webp"  class="mb-[.5vw]"/><p class="text-[.7vw] text-center mt-[.2vw] text-white">page 2-3</p> </a></li>
+          <li class="tb-link cursor-pointer pb-[.5vw]" data-page="4" ><a class="w-[10vw] h-[7vw]"> <img src="../images/Thumnail-images/page-4-5.webp" class="mb-[.5vw]" /><p class="text-[.7vw] text-center mt-[.2vw] text-white">page 4-5</p></a></li>
+          <li class="tb-link cursor-pointer pb-[.5vw]" data-page="6" ><a class="w-[10vw] h-[7vw]"> <img src="../images/Thumnail-images/page-6-7.webp"  class="mb-[.5vw]"/><p class="text-[.7vw] text-center mt-[.2vw] text-white">page 6-7</p></a></li>
+          <li class="tb-link cursor-pointer pb-[.5vw]" data-page="8" ><a class="w-[10vw] h-[7vw]"> <img src="../images/Thumnail-images/page-8-9.webp" class="mb-[.5vw]"/><p class="text-[.7vw] text-center mt-[.2vw] text-white">page 8-9</p></a></li>
+          <li class="tb-link cursor-pointer pb-[.5vw]" data-page="10" ><a class="w-[10vw] h-[7vw]"> <img src="../images/Thumnail-images/page-10-11.webp" class="mb-[.5vw]" /><p class="text-[.7vw] text-center mt-[.2vw] text-white">page 10-11</p></a></li>
+          <li class="tb-link cursor-pointer pb-[.5vw]" data-page="12" ><a class="w-[10vw] h-[7vw]"> <img src="../images/Thumnail-images/page-12-13.webp" class="mb-[.5vw]"/><p class="text-[.7vw] text-center mt-[.2vw] text-white">page 12-13</p></a></li>
+          <li class="tb-link cursor-pointer pb-[.5vw]" data-page="14" ><a class="w-[5.2vw] h-[7vw]"> <img src="../images/Thumnail-images/page-14.webp" class="mb-[.5vw]" /><p class="text-[.7vw] text-center mt-[.2vw] text-white">page 14</p></a></li>
+        </ul>
+      </nav>
+
+
+<!-- --------------thumbanil code end--------------------- -->
+
+
+
+
+
+
        <audio id="navAudio"></audio>
-      <button id="shareBtn" class="share-btn" aria-label="Share this page">
-        <!-- Replace the previous SVG in your .share-btn with this: -->
+      <!-- <button id="shareBtn" class="share-btn" aria-label="Share this page">
+        
       <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- White background with green border -->
+
   <circle cx="15" cy="15" r="14" fill="#ffffff" stroke="#0f2f1d" stroke-width="2"/>
   
-  <!-- Share icon in green -->
+
   <g>
     <circle cx="9" cy="15.5" r="2.5" fill="#0f2f1d" />
     <circle cx="21" cy="8.5" r="2.5" fill="#0f2f1d" />
@@ -171,10 +320,7 @@
           stroke="#0f2f1d" stroke-width="1.6" stroke-linecap="round" />
   </g>
 </svg>
-
-
-
-      </button>
+      </button> -->
       <!-- <div class="share-menu" id="shareMenu" role="menu" aria-hidden="true">
         <div class="share-link-row">
           <input id="shareInput" type="text">
@@ -198,16 +344,16 @@
 </div>
 
 <div>
-  <img id="goToPage1" data-audio-path="../audios/home.mp3" src="../images/table_of_content/home-icon.svg" alt="home-icon" class="absolute w-[58px] h-[58px] right-[2%] top-[14%] p-2 z-1005 border-black rounded-full bg-white  hover:bg-[#fcb33e] cursor-pointer fixed"/>
+  <img id="goToPage1" data-audio-path="../audios/home.mp3" src="../images/home-icon.svg" alt="home-icon" class="absolute w-[58px] h-[58px] right-[2%] top-[3%] p-2 z-1005 border-black rounded-full bg-white  hover:bg-[#fcb33e] cursor-pointer fixed"/>
 </div>
 
  
 <div class="bgm-container">
         <audio id="bgmAudio" loop>
             <source src="../audios/Beloved(chosic.com).mp3" type="audio/wav">
-             <!-- <source src="../audios/TTP_MUSIC.mp3" type="audio/wav"> -->
+            
         </audio>
-        <button id="bgmButton" class="bgm-toggle">🎵 ON</button>
+        <!-- <button id="bgmButton" class="bgm-toggle">🎵 ON</button> -->
     </div>
 
       <!-- <div class="home-img-container">
@@ -708,66 +854,7 @@
 
 <!-- ----------Bottom menu start---------------- -->
 
-<!-- Floating Action Menu -->
-<div class="fab-container">
-  <!-- Three Dot Trigger Button -->
-  <button class="fab-trigger" id="fabTrigger" aria-label="Open menu">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-      <circle cx="12" cy="5" r="2" fill="currentColor"/>
-      <circle cx="12" cy="12" r="2" fill="currentColor"/>
-      <circle cx="12" cy="19" r="2" fill="currentColor"/>
-    </svg>
-  </button>
 
-  <!-- Backdrop Blur Overlay -->
-  <div class="fab-overlay" id="fabOverlay"></div>
-
-  <!-- Circular Expanded Menu -->
-  <div class="fab-menu" id="fabMenu">
-    <!-- Close Button (X) -->
-    <button class="fab-close" id="fabClose" aria-label="Close menu">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <line x1="18" y1="6" x2="6" y2="18"/>
-        <line x1="6" y1="6" x2="18" y2="18"/>
-      </svg>
-    </button>
-
-    <!-- Menu Items -->
-    <div class="fab-menu-items">
-      <!-- Share Icon -->
-      <button class="fab-menu-item share-menu-icon" data-action="share" aria-label="Share">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="18" cy="5" r="3"/>
-          <circle cx="6" cy="12" r="3"/>
-          <circle cx="18" cy="19" r="3"/>
-          <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
-          <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
-        </svg>
-        <span>Share</span>
-      </button>
-
-      <!-- Music Icon -->
-      <button class="fab-menu-item music-menu-icon" data-action="music" aria-label="Music">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M9 18V5l12-2v13"/>
-          <circle cx="6" cy="18" r="3"/>
-          <circle cx="18" cy="16" r="3"/>
-        </svg>
-        <span>Music</span>
-      </button>
-
-      <!-- Download Icon -->
-      <button class="fab-menu-item download-menu-icon" data-action="download" aria-label="Download">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-          <polyline points="7 10 12 15 17 10"/>
-          <line x1="12" y1="15" x2="12" y2="3"/>
-        </svg>
-        <span>Download</span>
-      </button>
-    </div>
-  </div>
-</div>
 
 
 

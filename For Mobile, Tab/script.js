@@ -399,3 +399,278 @@ revealElements1.forEach((element, index) => {
   });
 });
 
+
+
+//  **************************************************Template code Start ******************************************
+
+
+
+
+
+// ==================== Floating Action Button Menu ====================
+
+const fabTrigger = document.getElementById('fabTrigger');
+const fabMenu = document.getElementById('fabMenu');
+const fabOverlay = document.getElementById('fabOverlay');
+const fabClose = document.getElementById('fabClose');
+
+// Open Menu
+function openFabMenu() {
+  fabTrigger.classList.add('active');
+  fabMenu.classList.add('show');
+  fabOverlay.classList.add('show');
+  document.body.style.overflow = 'hidden'; // Prevent scrolling
+}
+
+// Close Menu
+function closeFabMenu() {
+  fabTrigger.classList.remove('active');
+  fabMenu.classList.remove('show');
+  fabOverlay.classList.remove('show');
+  document.body.style.overflow = ''; // Restore scrolling
+}
+
+// Event Listeners
+fabTrigger.addEventListener('click', openFabMenu);
+fabClose.addEventListener('click', closeFabMenu);
+fabOverlay.addEventListener('click', closeFabMenu);
+
+// ESC key to close
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && fabMenu.classList.contains('show')) {
+    closeFabMenu();
+  }
+});
+
+// Menu Item Actions
+document.querySelectorAll('.fab-menu-item').forEach(item => {
+  item.addEventListener('click', (e) => {
+    const action = e.currentTarget.dataset.action;
+    
+    switch(action) {
+      case 'share':
+        handleShare();
+        break;
+      case 'music':
+        handleMusic();
+        break;
+      case 'download':
+        handleDownload();
+        break;
+    }
+    
+    closeFabMenu();
+  });
+});
+
+// Action Handlers
+function handleShare() {
+  if (navigator.share) {
+    navigator.share({
+      // title: document.title,
+      // url: window.location.href
+    }).catch(console.error);
+  } else {
+    // Fallback: Copy to clipboard
+    navigator.clipboard.writeText(window.location.href);
+    alert('Link copied to clipboard!');
+  }
+}
+
+function handleMusic() {
+  console.log('Music action triggered');
+  // Add your music functionality here
+}
+
+function handleDownload() {
+  console.log('Download action triggered');
+  // Add your download functionality here
+}
+
+
+
+
+
+
+
+
+
+
+
+// **************************************************Template code End ****************************************** 
+
+// music and share button 
+
+
+// ========== MUSIC TOGGLE FUNCTIONALITY (Top Right Button) ==========
+document.addEventListener("DOMContentLoaded", function() {
+    const musicToggle = document.getElementById('musicToggle');
+    const bgmAudio = document.getElementById('bgmAudio');
+    const musicIcon = document.getElementById('musicIcon');
+    const mutedIcon = document.getElementById('mutedIcon');
+    const mutedLine = document.getElementById('mutedLine');
+    
+    let isMusicPlaying = false;
+    
+    if (musicToggle && bgmAudio) {
+        musicToggle.addEventListener('click', function() {
+            if (isMusicPlaying) {
+                bgmAudio.pause();
+                isMusicPlaying = false;
+                if (musicIcon) musicIcon.style.display = 'none';
+                if (mutedIcon) mutedIcon.style.display = 'block';
+                if (mutedLine) mutedLine.style.display = 'block';
+            } else {
+                bgmAudio.play();
+                isMusicPlaying = true;
+                if (musicIcon) musicIcon.style.display = 'block';
+                if (mutedIcon) mutedIcon.style.display = 'none';
+                if (mutedLine) mutedLine.style.display = 'none';
+            }
+        });
+    }
+    
+    // ========== BOTTOM MUSIC ICON FUNCTIONALITY (FAB Menu) ==========
+ document.addEventListener("DOMContentLoaded", function () {
+  const bgmAudio = document.getElementById("bgmAudio");
+
+  const musicIcon = document.getElementById("musicIcon");
+  const mutedIcon = document.getElementById("mutedIcon");
+  const mutedLine = document.getElementById("mutedLine");
+
+  let isMusicPlaying = false;
+
+  if (!bgmAudio) return;
+
+  // 🔁 SINGLE TOGGLE FUNCTION
+  function toggleMusic() {
+    if (isMusicPlaying) {
+      bgmAudio.pause();
+      isMusicPlaying = false;
+
+      if (musicIcon) musicIcon.style.display = "none";
+      if (mutedIcon) mutedIcon.style.display = "block";
+      if (mutedLine) mutedLine.style.display = "block";
+    } else {
+      bgmAudio.play().catch(() => {});
+      isMusicPlaying = true;
+
+      if (musicIcon) musicIcon.style.display = "block";
+      if (mutedIcon) mutedIcon.style.display = "none";
+      if (mutedLine) mutedLine.style.display = "none";
+    }
+  }
+
+  // 🎵 TOP / SINGLE MUSIC BUTTON
+  const musicToggle = document.getElementById("musicToggle");
+  if (musicToggle) {
+    musicToggle.addEventListener("click", toggleMusic);
+  }
+
+  // 🎵 OLD FAB MENU MUSIC BUTTON
+  const fabMusicBtn = document.querySelector(".music-menu-icon");
+  if (fabMusicBtn) {
+    fabMusicBtn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      toggleMusic();
+
+      // Close FAB menu
+      document.querySelector(".fab-menu")?.classList.remove("show");
+      document.querySelector(".fab-overlay")?.classList.remove("show");
+    });
+  }
+});
+
+    
+    // ========== DOWNLOAD PDF FUNCTIONALITY ==========
+    const downloadBtn = document.querySelector('.download-menu-icon');
+    
+    if (downloadBtn) {
+        downloadBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            
+            const link = document.createElement('a');
+            link.href = '../dummy-pdf.pdf'; // Update path if needed
+            link.download = 'Terra tech idc.pdf';
+            link.style.display = 'none';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            const fabMenu = document.querySelector('.fab-menu');
+            const fabOverlay = document.querySelector('.fab-overlay');
+            if (fabMenu) fabMenu.classList.remove('show');
+            if (fabOverlay) fabOverlay.classList.remove('show');
+        });
+    }
+    
+    // ========== SHARE FUNCTIONALITY WITH OVERLAY FIX ==========
+    const fabShareBtn = document.querySelector('.share-menu-icon');
+    const shareMenu = document.getElementById('shareMenu');
+    const fabOverlay = document.querySelector('.fab-overlay');
+    const fabMenu = document.querySelector('.fab-menu');
+    
+    if (fabShareBtn && shareMenu) {
+        fabShareBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            
+            if (fabMenu) fabMenu.classList.remove('show');
+            
+            shareMenu.classList.add('show');
+            shareMenu.setAttribute('aria-hidden', 'false');
+            
+            // IMPORTANT: Keep the overlay visible
+            if (fabOverlay) {
+                fabOverlay.classList.add('show');
+            }
+            
+            const shareInput = document.getElementById('shareInput');
+            if (shareInput) {
+                try {
+                    shareInput.value = window.top.location.href;
+                } catch (e) {
+                    shareInput.value = window.location.href;
+                }
+                setTimeout(() => shareInput.select(), 90);
+            }
+        });
+    }
+    
+    // Close share menu when clicking overlay
+    if (fabOverlay) {
+        fabOverlay.addEventListener('click', function() {
+            if (shareMenu && shareMenu.classList.contains('show')) {
+                shareMenu.classList.remove('show');
+                fabOverlay.classList.remove('show');
+            } else {
+                const fabMenu = document.querySelector('.fab-menu');
+                if (fabMenu) fabMenu.classList.remove('show');
+                fabOverlay.classList.remove('show');
+            }
+        });
+    }
+    
+    const copyLinkBtn = document.getElementById('copyLinkBtn');
+    const copiedMsg = document.getElementById('copiedMsg');
+    const shareInput = document.getElementById('shareInput');
+    
+    if (copyLinkBtn && shareInput) {
+        copyLinkBtn.addEventListener('click', function() {
+            navigator.clipboard.writeText(shareInput.value).then(function() {
+                if (copiedMsg) {
+                    copiedMsg.classList.add('show');
+                    setTimeout(() => copiedMsg.classList.remove('show'), 1200);
+                }
+            });
+            shareInput.select();
+        });
+    }
+    
+    document.addEventListener('keydown', function(e) {
+        if (e.key === "Escape" && shareMenu && shareMenu.classList.contains('show')) {
+            shareMenu.classList.remove('show');
+            if (fabOverlay) fabOverlay.classList.remove('show');
+        }
+    });
+});
+

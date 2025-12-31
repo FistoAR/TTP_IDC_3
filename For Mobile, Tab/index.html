@@ -46,13 +46,9 @@
         </ul>
   </nav>
   <audio id="navAudio"></audio>
-  <button id="shareBtn" class="share-btn" aria-label="Share this page">
-    <!-- Replace the previous SVG in your .share-btn with this: -->
+  <!-- <button id="shareBtn" class="share-btn" aria-label="Share this page">
     <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- White background with green border -->
       <circle cx="15" cy="15" r="14" fill="#ffffff" stroke="#0f2f1d" stroke-width="2" />
-
-      <!-- Share icon in green -->
       <g>
         <circle cx="9" cy="15.5" r="2.5" fill="#0f2f1d" />
         <circle cx="21" cy="8.5" r="2.5" fill="#0f2f1d" />
@@ -60,10 +56,7 @@
         <path d="M11.2 14.2l7.6-4.2M11.2 16.8l7.6 4.2" stroke="#0f2f1d" stroke-width="1.6" stroke-linecap="round" />
       </g>
     </svg>
-
-
-
-  </button>
+  </button> -->
   <!-- <div class="share-menu" id="shareMenu" role="menu" aria-hidden="true">
         <div class="share-link-row">
           <input id="shareInput" type="text">
@@ -93,8 +86,128 @@
   </div>
 
 <div>
-  <img id="goToPage1" data-audio-path="../audios/home.mp3" src="../images/table_of_content/home-icon.svg" alt="home-icon" class="absolute w-[58px] h-[58px] right-[3%] top-[14%] p-[11px] z-1005 border-black rounded-full bg-white  hover:bg-[#fcb33e] cursor-pointer fixed home-icon"/>
+  <img id="goToPage1" data-audio-path="../audios/home.mp3" src="../images/home-icon.svg" alt="home-icon" class="absolute w-[58px] h-[58px] right-[3%] top-[3%] p-[11px] z-1005 border-black rounded-full bg-white  hover:bg-[#fcb33e] cursor-pointer fixed home-icon"/>
 </div>
+
+
+
+<!-- --------------------------------------------------Nav dot code start------------------------- -->
+
+
+
+<!-- Floating Action Menu -->
+<div class="fab-container">
+  <!-- Three Dot Trigger Button -->
+  <button class="fab-trigger" id="fabTrigger" aria-label="Open menu">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="5" r="2" fill="currentColor"/>
+      <circle cx="12" cy="12" r="2" fill="currentColor"/>
+      <circle cx="12" cy="19" r="2" fill="currentColor"/>
+    </svg>
+  </button>
+
+  <!-- Backdrop Blur Overlay -->
+  <div class="fab-overlay" id="fabOverlay"></div>
+
+  <!-- Circular Expanded Menu -->
+  <div class="fab-menu" id="fabMenu">
+    <!-- Close Button (X) -->
+    <button class="fab-close" id="fabClose" aria-label="Close menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+
+    <!-- Menu Items -->
+    <div class="fab-menu-items">
+      <!-- Share Icon -->
+      <button class="fab-menu-item share-menu-icon" id="shareBtn" data-action="share" aria-label="Share">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="18" cy="5" r="3"/>
+          <circle cx="6" cy="12" r="3"/>
+          <circle cx="18" cy="19" r="3"/>
+          <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+          <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+        </svg>
+        <span>Share</span>
+      </button>
+
+      <!-- Music Icon -->
+      <!-- <button class="fab-menu-item music-menu-icon" data-action="music" aria-label="Music">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 18V5l12-2v13"/>
+          <circle cx="6" cy="18" r="3"/>
+          <circle cx="18" cy="16" r="3"/>
+        </svg>
+        <span>Music</span>
+      </button> -->
+<button
+  id="musicToggle"
+  class="fab-menu-item music-menu-icon"
+  aria-label="Toggle Music"
+>
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+    <!-- MUSIC ICON -->
+    <path
+      id="musicIcon"
+      d="M9 18V8l8-2v10M9 14l8-2"
+      stroke="#059669"
+      stroke-width="2.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+
+    <!-- MUTED CIRCLE -->
+    <circle
+      id="mutedIcon"
+      cx="12"
+      cy="12"
+      r="8"
+      stroke="#dc2626"
+      stroke-width="2.5"
+      fill="none"
+      style="display:none;"
+    />
+
+    <!-- MUTED SLASH -->
+    <line
+      id="mutedLine"
+      x1="7"
+      y1="7"
+      x2="17"
+      y2="17"
+      stroke="#dc2626"
+      stroke-width="2.5"
+      stroke-linecap="round"
+      style="display:none;"
+    />
+  </svg>
+
+  <span>Music</span>
+</button>
+
+
+
+      <!-- Download Icon -->
+      <button class="fab-menu-item download-menu-icon" data-action="download" aria-label="Download">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        <span>Download</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<!-- --------------------------------------------------Nav dot code end------------------------- -->
+
+
+
+
 
   <div class="back-top-wrapper">
     <div class="back-top-button">

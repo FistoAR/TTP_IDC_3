@@ -1827,8 +1827,10 @@ filter: invert(65%) sepia(100%) saturate(560%) hue-rotate(319deg) brightness(90%
     position: fixed;
     /* top: 98px;
     right: 36px; */
-    top: 25px;
-    right: 100px;
+    /* top: 25px; */
+    /* right: 100px; */
+    bottom: 5vw;
+    left: 5vw;
     min-width: 280px;
     padding: 14px 18px 12px 18px;
     background: #fff; /* white menu background */
@@ -1859,7 +1861,7 @@ filter: invert(65%) sepia(100%) saturate(560%) hue-rotate(319deg) brightness(90%
 
 @keyframes slideInRightShare {
   from {
-    transform: translateX(100%);
+    transform: translateX(-100%);
     opacity: 0;
   }
   to {
@@ -1979,7 +1981,7 @@ filter: invert(65%) sepia(100%) saturate(560%) hue-rotate(319deg) brightness(90%
   position: fixed;
   bottom: 1vw;
   left: 2vw;
-  z-index: 99999999;
+  z-index: 9999;
 }
 
 /* Three Dot Trigger Button */
@@ -2043,10 +2045,10 @@ filter: invert(65%) sepia(100%) saturate(560%) hue-rotate(319deg) brightness(90%
   left: -6vw;
   width: 20vw;
   height: 20vw;
-  min-width: 280px;
+  /* min-width: 280px;
   min-height: 280px;
   max-width: 380px;
-  max-height: 380px;
+  max-height: 380px; */
   border-radius: 50%;
   background: linear-gradient(135deg, #fcb33e 0%, #f59e0b 100%);
   box-shadow: 0 1vw 3vw rgba(0, 0, 0, 0.3);
@@ -2107,12 +2109,12 @@ filter: invert(65%) sepia(100%) saturate(560%) hue-rotate(319deg) brightness(90%
 
 /* Individual Menu Item */
 .fab-menu-item {
-  width: 1vw;
-  height: 1vw;
-  min-width: 70px;
-  min-height: 70px;
-  max-width: 90px;
-  max-height: 90px;
+  width: 4.5vw;
+  height: 4.5vw;
+  /* min-width: 70px; */
+  /* min-height: 70px; */
+  /* max-width: 90px; */
+  /* max-height: 90px; */
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.95);
   border: 2px solid rgba(255, 255, 255, 0.3);
@@ -2164,30 +2166,31 @@ filter: invert(65%) sepia(100%) saturate(560%) hue-rotate(319deg) brightness(90%
 }
 
 .fab-menu-item span {
-  font-size: 0.5vw;
-  min-font-size: 10px;
+  font-size: 0.45vw;
+  /* min-font-size: 10px; */
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-top: 0.2vw;
+  
 }
 
 .share-menu-icon{
     position: absolute;
-    left: 35%;
-    bottom: 70%;
+    left: 7vw;
+    bottom: 15vw;
 }
 
 .music-menu-icon{
     position: absolute;
-    left: 59%;
-    bottom: 57%;
+    left: 12vw;
+    bottom: 12vw;
 }
 
 .download-menu-icon{
     position: absolute;
-    bottom: 32%;
-    left: 70%;
+    bottom: 6.5vw;
+    left: 14.5vw;
 }
 /* Responsive Adjustments */
 @media (max-width: 768px) {
@@ -2210,3 +2213,255 @@ filter: invert(65%) sepia(100%) saturate(560%) hue-rotate(319deg) brightness(90%
 }
 
 /* **********************************Template Css code End************************************* */
+
+
+
+
+
+
+
+/* -------Thumnail code start-------  */
+
+
+/* --- Floating TOC Styles --- */
+.toc-floating1 {
+    position: fixed;
+    width: 18vw;
+    background: #D3D6DB;
+    padding: 23px 22px 17px 22px;
+    box-shadow: 0 8px 35px rgba(0, 0, 0, 0.2);
+    border: 2px solid #000000;
+    border: none;
+    z-index: 1001;
+    opacity: 0;
+    transform: translateY(24px) scale(0.97);
+    pointer-events: none;
+    transition: opacity .32s cubic-bezier(.7, -0.26, .8, 1.42), transform .33s cubic-bezier(.7, -0.26, .8, 1.42);
+    visibility: hidden;
+}
+
+.toc-floating1.show {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+    visibility: visible;
+}
+
+.toc-title1 {
+    font-size: 2vw;
+    color: #000000;
+    margin-bottom: 13px;
+    letter-spacing: 0.03em;
+}
+
+.toc-list1 {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.toc-list1 .active {
+    border: .5vw solid #fffdfd;   
+    border-radius: 6px;
+    background-color: #ffffff;
+}
+.toc-list1 .active p {
+    color: rgb(0, 0, 0) !important;
+}
+.toc-list1 li {
+    margin: 11px auto 11px ;
+    cursor: pointer;
+}
+
+.toc-list1 a {
+    text-decoration: none;
+    color: #000;
+    font-weight: 500;
+    display: block;
+    transition: color 0.21s, background 0.22s, transform 0.17s;
+    font-size: 1.03em;
+}
+
+.toc-list1 a:hover,
+.toc-list1 a:focus {
+    transform: translateX(4px) scale(1.066);
+}
+
+
+
+@media (max-width: 650px) {
+    .toc-floating1 {
+        left: 0;
+        top: 0;
+        right: 0;
+        border-radius: 0 0 15px 15px;
+        width: 97vw;
+        margin: 0 1.5vw;
+        border-left: none;
+        border-right: none;
+    }
+
+    .nav-toggle-btn1 {
+        top: 16px;
+        left: 10px;
+    }
+}
+
+
+
+/* -----------nav-toc scrollable------------- */
+
+
+
+
+.toc-floating1 {
+    position: fixed;
+    top: 0%;
+    bottom: 0%;
+    left: 0%;
+    width: 18vw;
+    height: 100%;
+     background: #fcb33e;
+    padding: 0px 0px 17px 22px;
+    box-shadow: 0 8px 35px rgba(0, 0, 0, 0.2);
+    z-index: 10011;
+    opacity: 0;
+    transform: translateY(-50%) ;
+    pointer-events: none;
+    transition: opacity .32s cubic-bezier(.7, -0.26, .8, 1.42),
+        transform .33s cubic-bezier(.7, -0.26, .8, 1.42);
+    visibility: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.toc-title1 {
+    flex-shrink: 0;
+}
+
+.toc-list1 {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0;
+    margin: 0;
+    /* padding-bottom: 30px; */
+}
+
+
+
+.nav-overlay1 {
+    position: fixed;
+    z-index: 1000;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.25);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .24s;
+}
+
+.nav-overlay1.show {
+    opacity: 1;
+    pointer-events: auto;
+
+}
+
+
+.nav-toggle-btn1 {
+    position: fixed;
+    top: 3%;
+    left: 50%;
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    border: none;
+    background: #fff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    z-index: 1002;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: box-shadow 0.26s, transform 0.2s, background 0.25s;
+    outline: 3px solid #fff;
+    scale: .8;
+}
+
+
+
+/* -------Thumnail code end-------  */
+
+
+
+
+
+
+
+
+
+/* music and share buttton code  */
+
+
+
+/* ========== MUSIC TOGGLE BUTTON (Top Right) ========== */
+.music-btn {
+  position: fixed;
+  top: 1.5vw;
+  right: 1.5vw;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 10000;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.music-btn:hover {
+  transform: scale(1.1) rotate(5deg);
+  filter: drop-shadow(0 4px 8px rgba(5, 150, 105, 0.3));
+}
+
+.music-btn:active {
+  transform: scale(0.95);
+}
+
+.music-btn svg {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+@media (max-width: 768px) {
+  .music-btn {
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+  }
+  
+  .music-btn svg {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* ========== SHARE MENU WITH OVERLAY ========== */
+.share-menu {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  z-index: 10002;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.share-menu.show {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+  pointer-events: all;
+}
