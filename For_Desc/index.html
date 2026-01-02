@@ -328,20 +328,45 @@
         </div>
         <span class="copied-msg" id="copiedMsg">Copied!</span>
       </div> -->
-<div class="share-menu" id="shareMenu" role="menu" aria-hidden="true">
-  <div class="share-link-row">
-    <input id="shareInput" type="text" value="https://yourwebsite.com" readonly>
-    <button id="copyLinkBtn" class="copy-link-btn" role="menuitem">Copy Link</button>
-  <!-- ✅ WhatsApp Share Button -->
-  <button id="whatsappShareBtn" class="whatsapp-share-btn mr-0 ml-auto cursor-pointer" role="menuitem">
-    <img src=" https://img.icons8.com/fluency/48/whatsapp.png" alt="WhatsApp" width="32" height="32" class="">
-    
-  </button>
-  </div>
-  <span class="copied-msg" id="copiedMsg">Copied!</span>
+<!-- SHARE POPUP -->
+<div class="share-pop" id="sharePop" aria-hidden="true">
 
-  
+  <div class="share-accent"></div>
+
+  <div class="share-body">
+
+    <h3 class="share-title">Share</h3>
+
+    <!-- SHARE LINK -->
+    <p class="share-label">Share link</p>
+    <div class="share-link-wrap">
+      <input id="shareInput" type="text" value="https://yourwebsite.com" readonly>
+      <button id="copyLinkBtn">Copy</button>
+    </div>
+
+    <!-- SOCIAL -->
+    <p class="share-label">Share through</p>
+    <div class="share-platforms">
+      <button data-share="whatsapp" title="WhatsApp">
+        <img src="https://img.icons8.com/fluency/48/whatsapp.png">
+      </button>
+      <button data-share="facebook" title="Facebook">
+        <img src="https://img.icons8.com/fluency/48/facebook-new.png">
+      </button>
+      <button data-share="linkedin" title="LinkedIn">
+        <img src="https://img.icons8.com/color/48/linkedin.png">
+      </button>
+      <button data-share="twitter" title="Twitter">
+        <img src="https://img.icons8.com/color/48/twitterx.png">
+      </button>
+    </div>
+
+    <span class="copied-msg" id="copiedMsg">Link copied</span>
+
+  </div>
 </div>
+
+
 
 <div>
   <img id="goToPage1" data-audio-path="../audios/home.mp3" src="../images/home-icon.svg" alt="home-icon" class="absolute w-[58px] h-[58px] right-[2%] top-[3%] p-2 z-1005 border-black rounded-full bg-white  hover:bg-[#fcb33e] cursor-pointer fixed"/>

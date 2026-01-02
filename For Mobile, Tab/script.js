@@ -604,73 +604,123 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
     
-    // ========== SHARE FUNCTIONALITY WITH OVERLAY FIX ==========
-    const fabShareBtn = document.querySelector('.share-menu-icon');
-    const shareMenu = document.getElementById('shareMenu');
-    const fabOverlay = document.querySelector('.fab-overlay');
-    const fabMenu = document.querySelector('.fab-menu');
+
+    // SHARE POPUP FUNCTIONALITY - UPDATED VERSION
+const shareBtn = document.getElementById('shareBtn');
+const sharePop = document.getElementById('sharePop');
+const shareInput = document.getElementById('shareInput');
+const copyLinkBtn = document.getElementById('copyLinkBtn');
+const copiedMsg = document.getElementById('copiedMsg');
+const fabOverlay = document.querySelector('.fab-overlay');
+
+// Open share popup
+function openSharePopup() {
+    if (!sharePop || !shareInput) return;
     
-    if (fabShareBtn && shareMenu) {
-        fabShareBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            
-            if (fabMenu) fabMenu.classList.remove('show');
-            
-            shareMenu.classList.add('show');
-            shareMenu.setAttribute('aria-hidden', 'false');
-            
-            // IMPORTANT: Keep the overlay visible
-            if (fabOverlay) {
-                fabOverlay.classList.add('show');
-            }
-            
-            const shareInput = document.getElementById('shareInput');
-            if (shareInput) {
-                try {
-                    shareInput.value = window.top.location.href;
-                } catch (e) {
-                    shareInput.value = window.location.href;
-                }
-                setTimeout(() => shareInput.select(), 90);
-            }
-        });
-    }
+    // Set current URL
+    shareInput.value = window.location.href;
     
-    // Close share menu when clicking overlay
+    // Show popup
+    sharePop.classList.add('show');
+    sharePop.setAttribute('aria-hidden', 'false');
+    
+    // Show overlay
     if (fabOverlay) {
-        fabOverlay.addEventListener('click', function() {
-            if (shareMenu && shareMenu.classList.contains('show')) {
-                shareMenu.classList.remove('show');
-                fabOverlay.classList.remove('show');
-            } else {
-                const fabMenu = document.querySelector('.fab-menu');
-                if (fabMenu) fabMenu.classList.remove('show');
-                fabOverlay.classList.remove('show');
-            }
-        });
+        fabOverlay.classList.add('show');
     }
+}
+
+// Close share popup
+function closeSharePopup() {
+    if (!sharePop) return;
     
-    const copyLinkBtn = document.getElementById('copyLinkBtn');
-    const copiedMsg = document.getElementById('copiedMsg');
-    const shareInput = document.getElementById('shareInput');
+    sharePop.classList.remove('show');
+    sharePop.setAttribute('aria-hidden', 'true');
     
-    if (copyLinkBtn && shareInput) {
-        copyLinkBtn.addEventListener('click', function() {
-            navigator.clipboard.writeText(shareInput.value).then(function() {
-                if (copiedMsg) {
-                    copiedMsg.classList.add('show');
-                    setTimeout(() => copiedMsg.classList.remove('show'), 1200);
-                }
-            });
-            shareInput.select();
-        });
+    // Hide overlay only if no other menus are open
+    const fabMenu = document.querySelector('.fab-menu');
+    if (fabOverlay && (!fabMenu || !fabMenu.classList.contains('show'))) {
+        fabOverlay.classList.remove('show');
     }
-    
-    document.addEventListener('keydown', function(e) {
-        if (e.key === "Escape" && shareMenu && shareMenu.classList.contains('show')) {
-            shareMenu.classList.remove('show');
-            if (fabOverlay) fabOverlay.classList.remove('show');
-        }
+}
+
+// Share button click event
+if (shareBtn && sharePop) {
+    shareBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        
+        // Close FAB menu if open
+        const fabMenu = document.querySelector('.fab-menu');
+        const fabTrigger = document.getElementById('fabTrigger');
+        if (fabMenu) fabMenu.classList.remove('show');
+        if (fabTrigger) fabTrigger.classList.remove('active');
+        
+        openSharePopup();
     });
+}
+
+// Copy link button
+if (copyLinkBtn && shareInput && copiedMsg) {
+    copyLinkBtn.addEventListener('click', function() {
+        shareInput.select();
+        shareInput.setSelectionRange(0, 99999); // For mobile devices
+        
+        // Copy to clipboard
+        navigator.clipboard.writeText(shareInput.value).then(function() {
+            copiedMsg.classList.add('show');
+            setTimeout(() => {
+                copiedMsg.classList.remove('show');
+            }, 1200);
+        }).catch(function() {
+            // Fallback for older browsers
+            document.execCommand('copy');
+            copiedMsg.classList.add('show');
+            setTimeout(() => {
+                copiedMsg.classList.remove('show');
+            }, 1200);
+        });
+    });
+}
+
+// Social sharing buttons
+document.querySelectorAll('[data-share]').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const url = encodeURIComponent(shareInput.value);
+        const text = encodeURIComponent('Check this out!');
+        let link;
+        
+        switch(btn.dataset.share) {
+            case 'whatsapp':
+                link = `https://wa.me/?text=${text}%20${url}`;
+                break;
+            case 'facebook':
+                link = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+                break;
+            case 'linkedin':
+                link = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+                break;
+            case 'twitter':
+                link = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+                break;
+        }
+        
+        window.open(link, '_blank', 'noopener,noreferrer');
+    });
+});
+
+// Close popup when clicking overlay
+if (fabOverlay) {
+    fabOverlay.addEventListener('click', function() {
+        closeSharePopup();
+    });
+}
+
+// Close on Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && sharePop && sharePop.classList.contains('show')) {
+        closeSharePopup();
+    }
+});
+
 });
 

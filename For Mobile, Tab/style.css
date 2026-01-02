@@ -1267,4 +1267,207 @@ height: 7%;
   }
 }
 
+
+
+
+
+
+
+/* music and share buttton code  */
+
+
+
+/* ========== MUSIC TOGGLE BUTTON (Top Right) ========== */
+.music-btn {
+  position: fixed;
+  top: 1.5vw;
+  right: 1.5vw;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 10000;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.music-btn:hover {
+  transform: scale(1.1) rotate(5deg);
+  filter: drop-shadow(0 4px 8px rgba(5, 150, 105, 0.3));
+}
+
+.music-btn:active {
+  transform: scale(0.95);
+}
+
+.music-btn svg {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+@media (max-width: 768px) {
+  .music-btn {
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+  }
+  
+  .music-btn svg {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* ========== SHARE MENU WITH OVERLAY ========== */
+.share-menu {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  z-index: 10002;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.share-menu.show {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+  pointer-events: all;
+}
+
+
+
+/* ===============================
+   UNIQUE SHARE POPUP STYLE
+================================ */
+
+.share-pop {
+    position: fixed;
+    bottom: 50%;
+    right: 50%;
+    transform: translate(50%, 50%);
+    /* width: 340px; */
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 20px 50px rgba(0,0,0,.25);
+    display: none;
+    overflow: hidden;
+    z-index: 99999;
+}
+
+/* Yellow side accent */
+.share-accent {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 14px;
+    height: 100%;
+    background: #fcb33e;
+}
+
+/* Body */
+.share-body {
+    padding: 20px 20px 18px 34px;
+}
+
+/* Title */
+.share-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 14px;
+}
+
+/* Labels */
+.share-label {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: #555;
+}
+
+/* Link area */
+.share-link-wrap {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 18px;
+}
+
+.share-link-wrap input {
+    flex: 1;
+    padding: 9px 10px;
+    border-radius: 10px;
+    border: 1.5px solid #fcb33e;
+    font-size: 13px;
+}
+
+.share-link-wrap button {
+    background: #fcb33e;
+    border: none;
+    border-radius: 10px;
+    padding: 9px 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Platforms */
+.share-platforms {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6px;
+}
+
+.share-platforms button {
+    width: 52px;
+    height: 52px;
+    background: #fff8ea;
+    border-radius: 14px;
+    border: 2px solid #fcb33e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all .25s ease;
+}
+
+.share-platforms button:hover {
+    background: #fcb33e;
+    transform: translateY(-4px);
+}
+
+.share-platforms img {
+    width: 26px;
+}
+
+/* Copied msg */
+.copied-msg {
+    display: none;
+    text-align: center;
+    font-size: 13px;
+    color: #000;
+    margin-top: 12px;
+    font-weight: 600;
+}
+
+/* Show state */
+.share-pop.show {
+    display: block;
+}
+
+/* ===============================
+   MOBILE
+================================ */
+@media (max-width: 600px) {
+    .share-pop {
+        bottom: 50%;
+    right: 50%;
+    transform: translate(50%, 50%);
+    }
+}
+
+
 /* **********************************Template Css code End************************************* */
