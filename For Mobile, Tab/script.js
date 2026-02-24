@@ -293,10 +293,10 @@ copyLinkBtn.addEventListener('click', function () {
 });
 
 // hide share menu on body/overlay click or Esc
-document.addEventListener('click', e => {
-    if (!shareMenu.contains(e.target) && !shareBtn.contains(e.target))
-        shareMenu.classList.remove('show');
-});
+// document.addEventListener('click', e => {
+//     if (!shareMenu.contains(e.target) && !shareBtn.contains(e.target))
+//         shareMenu.classList.remove('show');
+// });
 document.addEventListener('keydown', e => {
     if (e.key === "Escape") shareMenu.classList.remove('show');
 });
@@ -581,6 +581,7 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 });
 
+
     
     // ========== DOWNLOAD PDF FUNCTIONALITY ==========
     const downloadBtn = document.querySelector('.download-menu-icon');
@@ -590,7 +591,7 @@ document.addEventListener("DOMContentLoaded", function() {
             e.stopPropagation();
             
             const link = document.createElement('a');
-            link.href = '../dummy-pdf.pdf'; // Update path if needed
+            link.href = '../Terra-Tech-IDC-PDF.pdf'; // Update path if needed
             link.download = 'Terra tech idc.pdf';
             link.style.display = 'none';
             document.body.appendChild(link);

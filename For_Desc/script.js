@@ -1549,7 +1549,7 @@ document.addEventListener("DOMContentLoaded", function() {
             e.stopPropagation();
             
             const link = document.createElement('a');
-            link.href = '../dummy-pdf.pdf'; // Update path if needed
+            link.href = '../Terra-Tech-IDC-PDF.pdf'; // Update path if needed
             link.download = 'Terra tech idc.pdf';
             link.style.display = 'none';
             document.body.appendChild(link);

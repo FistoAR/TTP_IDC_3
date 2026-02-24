@@ -1944,7 +1944,7 @@ filter: invert(65%) sepia(100%) saturate(560%) hue-rotate(319deg) brightness(90%
 .full-screen {
     position: absolute;
     bottom: 3%;
-    right: 3%;
+    right: 2%;
     background: #fdfdfd;
      /* padding-top: 1%; */
 
