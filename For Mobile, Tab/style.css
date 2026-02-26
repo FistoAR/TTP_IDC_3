@@ -716,12 +716,19 @@ height: 7%;
   }
 }
 
-@media (min-width: 501px) {
+@media (min-width: 790px) {
   .white-page {
-    height: 70vh; /* for screens above 500px */
+    height: 90vh; /* for screens above 500px */
   }
 }
 
+/* iPad Mini (Portrait & Landscape) */
+@media only screen and (min-width: 600px) and (max-width: 780px) {
+  .white-page {
+    height: 95vh !important; /* for screens above 500px */
+  }
+
+}
 /* about us page */
 .profile_text {
     height: 7.15%;
