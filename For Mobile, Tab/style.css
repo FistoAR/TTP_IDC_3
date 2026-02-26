@@ -712,22 +712,27 @@ height: 7%;
 
 @media (max-width: 500px) {
   .white-page {
-    height: 65vh; /* for very small screens */
+    height: 70vh; /* for very small screens */
   }
 }
 
 @media (min-width: 790px) {
   .white-page {
-    height: 90vh; /* for screens above 500px */
+    height: 80vh; /* for screens above 500px */
   }
+   body{
+    padding: 5px 70px;
+ }
 }
 
 /* iPad Mini (Portrait & Landscape) */
 @media only screen and (min-width: 600px) and (max-width: 780px) {
   .white-page {
-    height: 95vh !important; /* for screens above 500px */
+    height: 80vh !important; /* for screens above 500px */
   }
-
+ body{
+    padding: 5px 70px;
+ }
 }
 /* about us page */
 .profile_text {
