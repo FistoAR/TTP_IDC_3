@@ -718,17 +718,17 @@ height: 7%;
 
 @media (min-width: 790px) {
   .white-page {
-    height: 80vh; /* for screens above 500px */
+    height: 75vh; /* for screens above 500px */
   }
    body{
-    padding: 5px 70px;
+    padding: 5px 80px;
  }
 }
 
 /* iPad Mini (Portrait & Landscape) */
 @media only screen and (min-width: 600px) and (max-width: 780px) {
   .white-page {
-    height: 80vh !important; /* for screens above 500px */
+    height: 75vh !important; /* for screens above 500px */
   }
  body{
     padding: 5px 70px;
