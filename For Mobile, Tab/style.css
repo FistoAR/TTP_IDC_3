@@ -734,6 +734,8 @@ height: 7%;
     padding: 5px 70px;
  }
 }
+
+
 /* about us page */
 .profile_text {
     height: 7.15%;
@@ -1513,3 +1515,18 @@ height: 7%;
     .bgm-toggle.off:hover {
       background: #5a6268;
     }
+
+
+@media (min-width: 768px) {
+  /* Your tablet styles here */
+
+      .fab-menu {
+    position: fixed;
+    bottom: 13vw;
+    left: -6vw;
+    width: 30vw;
+    height: 32vw;}
+
+    .fab-menu-item span {
+    font-size: 4px;}
+}
