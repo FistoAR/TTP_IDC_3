@@ -1044,7 +1044,7 @@ if (window.innerWidth >= 1100) {
     options: {
       pageWidth: 550,
       pageHeight: 690,
-      pages: 12,
+      pages: 16,
       when: {
         turning: function (e, page, view) {
           var audio = document.getElementById("audio");
