@@ -1077,11 +1077,11 @@
           </a>
           <a href="https://terratechpacks.com/" target="_blank"><img src="../images/page_12/website.svg" alt="website"
               class="absolute bottom-[27%] right-[5%] w-[40%] page-14-right" /></a>
-          <!-- <iframe class="absolute bottom-[2%] right-[5%] w-[90%] h-[20%] page-14-right"
+          <iframe class="absolute bottom-[2%] right-[5%] w-[90%] h-[20%] page-14-right"
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3917.1574683116733!2d76.95185237504442!3d10.951475189208146!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba85b6841a218f7%3A0x825be0e2a0d59933!2sTerra%20Tech%20Packs!5e0!3m2!1sen!2sin!4v1757066739807!5m2!1sen!2sin"
             width="600" height="450" style="border:0; " allowfullscreen="" loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"></iframe> -->
-<div id="map" class="absolute bottom-[2%] right-[5%] w-[90%] h-[20%] page-14-right" style="width:100%; height:300px;"></div>
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+<!-- <div id="map" class="absolute bottom-[2%] right-[5%] w-[90%] h-[20%] page-14-right" style="width:100%; height:300px;"></div> -->
         </div>
 
         <!-- ==========================page 16  end=============================================== -->
@@ -2065,17 +2065,54 @@ document.addEventListener("DOMContentLoaded", () => {
   <script type="text/javascript" src="script.js"></script>
 
 <script>
+let terraTechMap = null;
+let terraTechMapCenter = { lat: 10.951475, lng: 76.951852 };
+
 function initMap() {
-  const map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: 10.951475, lng: 76.951852 },
+  const mapElement = document.getElementById("map");
+  if (!mapElement) {
+    return;
+  }
+
+  terraTechMap = new google.maps.Map(mapElement, {
+    center: terraTechMapCenter,
     zoom: 15,
     disableDefaultUI: true,
     keyboardShortcuts: false,
   });
 
   new google.maps.Marker({
-    position: { lat: 10.951475, lng: 76.951852 },
-    map: map,
+    position: terraTechMapCenter,
+    map: terraTechMap,
+  });
+}
+
+function refreshContactMap() {
+  if (terraTechMap) {
+    google.maps.event.trigger(terraTechMap, 'resize');
+    terraTechMap.setCenter(terraTechMapCenter);
+  }
+}
+
+if (window.jQuery) {
+  $(function () {
+    $('#flipbook').bind('turned', function (event, page) {
+      if ($.inArray(16, $('#flipbook').turn('view', page, true)) !== -1) {
+        refreshContactMap();
+      }
+    });
+  });
+} else {
+  window.addEventListener('DOMContentLoaded', function () {
+    const flipbook = document.getElementById('flipbook');
+    if (flipbook) {
+      flipbook.addEventListener('turned', function (event) {
+        const page = event.detail && event.detail[0];
+        if (page === 16) {
+          refreshContactMap();
+        }
+      });
+    }
   });
 }
 </script>

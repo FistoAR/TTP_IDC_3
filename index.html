@@ -11,7 +11,6 @@
             padding: 0;
             margin: 0;
             box-sizing: border-box;
-
         }
 
         @media screen and (min-width: 992px) {
@@ -19,9 +18,7 @@
                 overflow-y: hidden;
                 overflow-x: hidden;
             }
-
         }
-
 
         #content {
             width: 100%;
@@ -30,10 +27,10 @@
 
         #content object {
             width: 100%;
-            height: 100%;
+            height: 100vh;
             border: none;
-            min-height: 100vh;
-            background-color: none;
+            display: block;
+            background-color: transparent;
         }
 
         #preloader {
@@ -58,116 +55,152 @@
         }
 
         @media (max-width: 650px) {
-    #preloader video {
-            width: 90%;
-            height: auto;
-            object-fit: cover;
-            user-select: none;
-            pointer-events: none;
+            #preloader video {
+                width: 90%;
+                height: auto;
+                object-fit: cover;
+                user-select: none;
+                pointer-events: none;
+            }
         }
-}
-
     </style>
-      <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 
 <body>
-    <div id="preloader" >
-        <video id="preloader-video" src="./images/Preloader_video.mp4"  playsinline></video>
+    <div id="preloader">
+        <video id="preloader-video" src="./images/Preloader_video.mp4" playsinline></video>
     </div>
     <div id="content"></div>
 </body>
+
 <script>
-  const video = document.getElementById("preloader-video");
-  const preloader = document.getElementById("preloader");
-  video.playbackRate = 0.4;
-  let domReady = false;
-  let finalPlayStarted = false;
-  let waitToFinishOnce = false;
+    const video = document.getElementById("preloader-video");
+    const preloader = document.getElementById("preloader");
+    video.playbackRate = 0.4;
 
- video.muted = true;
-video.play().catch(() => {});
+    // ─── Two gates: BOTH must open before preloader hides ───
+    // Gate 1: preloader video has finished
+    // Gate 2: inner page (+ all its images) has fully loaded
+    let videoEnded = false;
+    let contentLoaded = false;
 
-function enableSoundOnce() {
-  if (window.innerWidth >= 992) video.muted = false;
-  window.removeEventListener("click", enableSoundOnce);
-  window.removeEventListener("touchstart", enableSoundOnce);
-}
+    // Start muted (browsers block unmuted autoplay)
+    video.muted = true;
+    video.play().catch(() => {});
 
-window.addEventListener("click", enableSoundOnce);
-window.addEventListener("touchstart", enableSoundOnce);
-
-  // Wait for DOMContentLoaded
-  document.addEventListener("DOMContentLoaded", function () {
-    domReady = true;
-  });
-
-  video.addEventListener("ended", function () {
-    if (!domReady) {
-      // DOM not ready, loop video
-      video.currentTime = 0;
-      video.play();
-    }  else {
-      // Final play completed, remove preloader
-      preloader.style.transition = "opacity 0.5s ease";
-      preloader.style.opacity = 0;
-      preloader.style.pointerEvents = "none";
-      setTimeout(() => {
-        preloader.remove();
-         const obj = document.querySelector("#content object");
-        if (obj && obj.contentWindow) {
-          obj.contentWindow.postMessage({ trigger: "startAnimation" }, "*");
-        }
-      }, ); // give time for fade-out
+    // Unmute on first user interaction (desktop only)
+    function enableSoundOnce() {
+        if (window.innerWidth >= 992) video.muted = false;
+        window.removeEventListener("click", enableSoundOnce);
+        window.removeEventListener("touchstart", enableSoundOnce);
     }
-  });
-</script>
+    window.addEventListener("click", enableSoundOnce);
+    window.addEventListener("touchstart", enableSoundOnce);
 
-<script>
-  const embedded = document.getElementById("content");
-   window.addEventListener("message", function (event) {
-      // You could add origin checks here for security
-      if (event.data && event.data.action === "toggleFullscreen") {
-        if (!document.fullscreenElement) {
-          if (embedded.requestFullscreen) {
-            embedded.requestFullscreen();
-          } else if (embedded.webkitRequestFullscreen) {
-            embedded.webkitRequestFullscreen();
-          } else if (embedded.msRequestFullscreen) {
-            embedded.msRequestFullscreen();
-          }
-        } else {
-          if (document.exitFullscreen) {
-            document.exitFullscreen();
-          }
-        }
-      }
+    // Called whenever either gate opens — hides preloader only when both are open
+    function tryHidePreloader() {
+        if (!videoEnded || !contentLoaded) return;
+
+        preloader.style.transition = "opacity 0.5s ease";
+        preloader.style.opacity = 0;
+        preloader.style.pointerEvents = "none";
+
+        setTimeout(() => {
+            preloader.remove();
+            // Notify inner page to start its animations
+            const obj = document.querySelector("#content object");
+            if (obj && obj.contentWindow) {
+                obj.contentWindow.postMessage({ trigger: "startAnimation" }, "*");
+            }
+        }, 500); // matches fade-out duration
+    }
+
+    // Gate 1: video finished
+    video.addEventListener("ended", function () {
+        videoEnded = true;
+        tryHidePreloader();
     });
 
-   
-</script>
-
-
-
-
-<script>
+    // ─── Load the inner page ───
     function load_home() {
         var isMobile = window.innerWidth <= 1115;
-        var folderPath = isMobile ? 'For Mobile, Tab/index.html' : 'For_Desc/index.html';
-        if (!document.getElementById("content")) {
-            console.error("Content element not found");
-            return;
-        }
-        document.getElementById("content").innerHTML =
-            '<object type="text/html" data="' + folderPath + '" style="width:100%; height:600px;"></object>';
+        var folderPath = isMobile
+            ? 'For Mobile, Tab/index.html'
+            : 'For_Desc/index.html';
+
+        const obj = document.createElement("object");
+        obj.type = "text/html";
+        obj.data = folderPath;
+        obj.style.cssText = "width:100%; height:100vh; border:none; display:block;";
+
+        // Gate 2: object's own "load" event fires when the HTML is parsed,
+        // then we also wait for the inner window's "load" (all images/scripts done)
+        obj.addEventListener("load", function () {
+            try {
+                const innerWin = obj.contentWindow
+                    || (obj.contentDocument && obj.contentDocument.defaultView);
+
+                if (innerWin) {
+                    if (innerWin.document && innerWin.document.readyState === "complete") {
+                        // Already fully loaded (e.g. cached page)
+                        contentLoaded = true;
+                        tryHidePreloader();
+                    } else {
+                        // Wait for all images / subresources inside the inner page
+                        innerWin.addEventListener("load", function () {
+                            contentLoaded = true;
+                            tryHidePreloader();
+                        });
+                    }
+                } else {
+                    // Can't access inner window — treat as loaded
+                    contentLoaded = true;
+                    tryHidePreloader();
+                }
+            } catch (e) {
+                // Cross-origin or access error — treat as loaded
+                contentLoaded = true;
+                tryHidePreloader();
+            }
+        });
+
+        // Hard safety net: if "load" never fires, force-hide after 15 seconds
+        setTimeout(function () {
+            if (!contentLoaded) {
+                console.warn("Safety timeout reached — forcing preloader off");
+                contentLoaded = true;
+                tryHidePreloader();
+            }
+        }, 15000);
+
+        document.getElementById("content").appendChild(obj);
     }
+
     window.onload = load_home;
+</script>
 
-    // alert(window.innerHeight)
+<script>
+    // Fullscreen toggle requested from inner page
+    const embedded = document.getElementById("content");
 
-
-
-
+    window.addEventListener("message", function (event) {
+        if (event.data && event.data.action === "toggleFullscreen") {
+            if (!document.fullscreenElement) {
+                if (embedded.requestFullscreen) {
+                    embedded.requestFullscreen();
+                } else if (embedded.webkitRequestFullscreen) {
+                    embedded.webkitRequestFullscreen();
+                } else if (embedded.msRequestFullscreen) {
+                    embedded.msRequestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+    });
 </script>
 
 </html>
